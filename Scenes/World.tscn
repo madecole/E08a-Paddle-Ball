@@ -1,7 +1,14 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Assets/paddle.png" type="Texture" id=1]
 [ext_resource path="res://Assets/ball.png" type="Texture" id=2]
+
+[sub_resource type="GDScript" id=4]
+script/source = "extends KinematicBody2D
+
+func _physics_process(delta):
+	var mouse_x = get_viewport().get_mouse_position().x
+	position = Vector2(mouse_x, position.y) "
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 52.6666, 12.5556 )
@@ -11,11 +18,13 @@ friction = 0.0
 bounce = 1.0
 
 [sub_resource type="CircleShape2D" id=3]
+radius = 10.9852
 
 [node name="World" type="Node2D"]
 
 [node name="Paddle" type="KinematicBody2D" parent="."]
 position = Vector2( 544, 544 )
+script = SubResource( 4 )
 __meta__ = {
 "_edit_group_": true
 }
@@ -40,6 +49,7 @@ scale = Vector2( 1, 1.0202 )
 texture = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Ball"]
+position = Vector2( 544.044, 447.645 )
 shape = SubResource( 3 )
 
 [node name="Wall" type="StaticBody2D" parent="."]
